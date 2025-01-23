@@ -2,7 +2,7 @@ import logging
 import os
 
 
-def setup_logging(log_file="save_files/mylog.log", log_level=logging.INFO):
+def setup_logging(log_file="log/mylog.log", log_level=logging.INFO):
     """Настраивает логирование с выводом в консоль и записью в файл."""
 
     # Создаем логгер
@@ -37,7 +37,7 @@ def setup_logging(log_file="save_files/mylog.log", log_level=logging.INFO):
             '%(lineno)d - %(message)s'
     )
 
-    error_file = logging.FileHandler('save_files/error.log', 'a', encoding='utf-8')
+    error_file = logging.FileHandler('log/error.log', 'a', encoding='utf-8')
     error_file.setLevel(logging.DEBUG)
     error_file.addFilter(ErrorLogFilter())
     error_file.setFormatter(formatter_1)

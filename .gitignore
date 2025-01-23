@@ -5,8 +5,7 @@ venv/
 env/
 
 # Лог
-**/error.log
-**/mylog.log
+/log
 
 **/__pycache__/
 
