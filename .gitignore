@@ -5,5 +5,16 @@ venv/
 env/
 
 # Лог
-/save_files/error.log
-/save_files/mylog.log
+**/error.log
+**/mylog.log
+
+**/__pycache__/
+
+# Папки, создаваемые PyCharm
+.idea/
+*.iml
+
+# Временные файлы
+*.tmp
+*.swp
+*~
