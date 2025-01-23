@@ -1,0 +1,12 @@
+[2025-01-23 14:32:26,514] #ERROR    CbRF.py:38 - [Errno 2] No such file or directory: '../save_files/currency_code.json'
+Traceback (most recent call last):
+  File "C:\Users\pavan\PycharmProjects\CurrencyRate\service\CbRF.py", line 35, in currency
+    with open("../save_files/currency_code.json", "w", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../save_files/currency_code.json'
+[2025-01-23 14:32:26,514] #ERROR    CbRF.py:38 - [Errno 2] No such file or directory: '../save_files/currency_code.json'
+Traceback (most recent call last):
+  File "C:\Users\pavan\PycharmProjects\CurrencyRate\service\CbRF.py", line 35, in currency
+    with open("../save_files/currency_code.json", "w", encoding="utf-8") as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../save_files/currency_code.json'

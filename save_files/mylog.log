@@ -1,0 +1,4 @@
+[2025-01-23 14:34:25,562] #INFO     main.py:22 - Starting bot
+[2025-01-23 14:34:26,257] #INFO     CbRF.py:34 - Success. Exchange rate codes saved to file: "currency_code.json"
+[2025-01-23 14:34:38,364] #INFO     main.py:32 - Polling was cancelled
+[2025-01-23 14:34:38,364] #INFO     main.py:36 - Bot shutdown
