@@ -1,20 +1,17 @@
 import datetime
-import logging
-
-import requests
-import xml.etree.ElementTree as ET
-import os
-from pathlib import Path
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-import plotly.graph_objects as go
-import pandas as pd
-from plotly.subplots import make_subplots
 import json
+import xml.etree.ElementTree as ET
+from pathlib import Path
+
+import pandas as pd
+import plotly.graph_objects as go
+import requests
+from plotly.subplots import make_subplots
 
 from logging_settings import setup_logging
 
 logger = setup_logging()
+
 
 def currency():
     today = datetime.date.today().strftime("%d/%m/%Y")  # Формат: ДД/ММ/ГГГГ
@@ -36,7 +33,6 @@ def currency():
             json.dump(currencies, f, ensure_ascii=False, indent=4)
     except Exception as e:
         logger.exception(e)
-
 
 
 def course_today():
@@ -68,7 +64,6 @@ def dinamic_course(cod):
     xml_data = response.content
     logger.info(f'Success. Obtained exchange rate dynamics for currencies: {cod}')
     return xml_data
-
 
 
 def save_file(data_xml, filename):

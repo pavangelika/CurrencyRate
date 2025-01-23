@@ -1,6 +1,7 @@
+from decimal import Decimal, ROUND_HALF_UP
+
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import CallbackContext
-from decimal import Decimal, ROUND_HALF_UP
 
 from service.CbRF import course_today
 
@@ -15,6 +16,7 @@ def start(update: Update, context: CallbackContext) -> None:
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text('Выберите опцию:', reply_markup=reply_markup)
+
 
 def button(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
@@ -56,6 +58,7 @@ def usd_target_input(update: Update, context: CallbackContext) -> None:
     except ValueError:
         update.message.reply_text("Пожалуйста, введите целое число.")
 
+
 def eur_target_input(update: Update, context: CallbackContext) -> None:
     user_input = update.message.text
     try:
@@ -64,6 +67,7 @@ def eur_target_input(update: Update, context: CallbackContext) -> None:
         update.message.reply_text(f"Вы установили уведомление при достижении курса евро: {target_value} руб.")
     except ValueError:
         update.message.reply_text("Пожалуйста, введите целое число.")
+
 
 def check_and_notify(context: CallbackContext) -> None:
     data = course_today()

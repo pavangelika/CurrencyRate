@@ -2,10 +2,10 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 
-from handlers import user_handlers
-from service.CbRF import currency
 from config_data import config
+from handlers import user_handlers
 from logging_settings import setup_logging
+from service.CbRF import currency
 
 
 # Функция конфигурирования и запуска бота

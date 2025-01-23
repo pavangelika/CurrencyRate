@@ -34,7 +34,7 @@ def setup_logging(log_file="save_files/mylog.log", log_level=logging.INFO):
 
     formatter_1 = logging.Formatter(
         fmt='[%(asctime)s] #%(levelname)-8s %(filename)s:'
-        '%(lineno)d - %(message)s'
+            '%(lineno)d - %(message)s'
     )
 
     error_file = logging.FileHandler('save_files/error.log', 'a', encoding='utf-8')
@@ -43,6 +43,4 @@ def setup_logging(log_file="save_files/mylog.log", log_level=logging.INFO):
     error_file.setFormatter(formatter_1)
     logger.addHandler(error_file)
 
-
     return logger
-

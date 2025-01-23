@@ -1,12 +1,13 @@
-from aiogram.enums import ContentType
-from aiogram.types import Message
-from aiogram.filters import Command
 from aiogram import Router, F
+from aiogram.enums import ContentType
+from aiogram.filters import Command
+from aiogram.types import Message
 
 from service.CbRF import course_today, dinamic_course, parse_xml_data, graf_all_years_in_one
 
 # Инициализируем роутер уровня модуля
 router = Router()
+
 
 # @dp.message(CommandStart())
 # async def process_start_command(message: Message):
@@ -74,5 +75,3 @@ async def process_send_photo(message: Message):
 @router.message(F.content_type == ContentType.VIDEO)
 async def process_send_photo(message: Message):
     await message.reply(text='Вы прислали видео')
-
-
