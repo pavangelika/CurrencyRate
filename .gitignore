@@ -5,4 +5,5 @@ venv/
 env/
 
 # Лог
-**/*.log
+/save_files/error.log
+/save_files/mylog.log
