@@ -54,6 +54,32 @@ async def send_today_schedule_handler(message: Message):
             await message.answer(
                 text=LEXICON_NOTIFICATION_SEND['everyday_true'])
 
+@router.message(Command(commands=["exchange_rate"]))
+async def send_today_schedule_handler(message: Message):
+    user_id = message.from_user.id
+    if user_data[user_id].get("exchange_rate") == True:
+        job_id = f"interval_greeting_{user_id}"
+        text = LEXICON_NOTIFICATION_SEND['exchange_rate_false']
+        if scheduler.get_job(job_id):
+            try:
+                schedule_unsubscribe(job_id, scheduler)
+            except Exception as e:
+                logger.error(e)
+            finally:
+                await update_user_data(message, "exchange_rate", False)
+                await message.answer(text)
+                logger.info(f'{user_id} отписан от рассылки {job_id}')
+    else:
+        try:
+            await update_user_data(message, "exchange_rate", True)
+            schedule_interval_greeting(user_id, scheduler)
+        except Exception as e:
+            logger.error(f"Error in send_today_schedule_handler: {e}")
+        else:
+            await message.answer(
+                text=LEXICON_NOTIFICATION_SEND['exchange_rate_true'])
+
+
 @router.message(Command(commands=["exchange_rate_true"]))
 async def send_today_schedule_handler(message: Message):
     user_id = message.from_user.id
@@ -78,6 +104,7 @@ async def send_today_schedule_handler(message: Message):
         except Exception as e:
             logger.error(e)
         finally:
+            await update_user_data(message, "exchange_rate", False)
             await message.answer(text)
             logger.info(f'{user_id} отписан от рассылки {job_id}')
 

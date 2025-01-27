@@ -12,7 +12,7 @@ LEXICON_NOTIFICATION_SEND: dict[str, str] = {
     'everyday_true': 'Вы подписаны на ежедневную рассылку курса валют',
     'everyday_false': 'Вы отписались от ежедневной рассылки курса',
     'exchange_rate_true': 'Вы подписаны на рассылку об изменении курса валют',
-    'exchange_rate_false': 'Вы отписались от рассылки об изменении курса валют'
+    'exchange_rate_false': 'Вы отписались от рассылки об изменении курса валют',
 }
 
 LEXICON_COMMANDS_MENU: dict[str, str] = {
@@ -21,9 +21,9 @@ LEXICON_COMMANDS_MENU: dict[str, str] = {
     '/today': 'Курс сегодня',
     '/everyday_true': 'Ежедневная рассылка курса',
     '/everyday_false': 'Отписаться от ежедневной рассылки курса',
-    '/exchange_rate_true': 'Уведомление об изменении курса',
-    '/exchange_rate_false': 'Отписаться от рассылки об изменении курса',
+    '/exchange_rate': 'Подписаться/Отписаться от ежедневной рассылки курса',
     '/chart': 'Посмотреть график'
+
 }
 
 LEXICON_BTN: dict[str, str] = {
