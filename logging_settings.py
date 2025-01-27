@@ -1,7 +1,6 @@
 import logging
 import os
 
-
 def setup_logging(log_file="log/mylog.log", log_level=logging.INFO):
     """Настраивает логирование с выводом в консоль и записью в файл."""
 
@@ -12,7 +11,8 @@ def setup_logging(log_file="log/mylog.log", log_level=logging.INFO):
     # Создаем обработчик для вывода в консоль
     console_handler = logging.StreamHandler()
     console_handler.setLevel(log_level)
-    console_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    console_formatter = logging.Formatter('[%(asctime)s] #%(levelname)-8s %(filename)s:'
+        '%(lineno)d - %(message)s')
     console_handler.setFormatter(console_formatter)
     logger.addHandler(console_handler)
 
@@ -44,3 +44,5 @@ def setup_logging(log_file="log/mylog.log", log_level=logging.INFO):
     logger.addHandler(error_file)
 
     return logger
+
+logger = setup_logging()

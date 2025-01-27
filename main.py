@@ -1,12 +1,15 @@
+# main.py
+
 import asyncio
 
 from aiogram import Bot, Dispatcher
-
 from config_data import config
-from handlers import user_handlers
-from logging_settings import setup_logging
-from service.CbRF import currency
 
+from handlers import user_handlers
+from keyboards.menu import set_main_menu
+from logging_settings import logger
+from service.CbRF import currency
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 # Функция конфигурирования и запуска бота
 async def main():
@@ -14,14 +17,22 @@ async def main():
     bot = Bot(token=config.BOT_TOKEN)
     dp = Dispatcher()
 
+    # Инициализируем планировщик
+    scheduler = AsyncIOScheduler(timezone='Europe/Moscow')
+
+    # Настраиваем кнопку Menu
+    await set_main_menu(bot)
+
     # Регистрируем роутеры в диспетчере
     dp.include_router(user_handlers.router)
 
-    # Настраиваем логирование
-    logger = setup_logging()
-    logger.info('Starting bot')
+    # Передаем планировщик в обработчики
+    user_handlers.set_scheduler(scheduler)
 
-    currency()
+    # Настраиваем логирование
+    logger.info('Starting bot')
+    currencies = currency()
+    scheduler.start()
 
     try:
         # Пропускаем накопившиеся апдейты и запускаем polling
@@ -34,6 +45,7 @@ async def main():
         # Закрываем сессию бота
         await bot.session.close()
         logger.info('Bot shutdown')
+        scheduler.shutdown()  # Выключаем планировщик
 
 
 if __name__ == '__main__':

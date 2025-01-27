@@ -1,28 +1,35 @@
-from aiogram import Router
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
-from telegram import KeyboardButton
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-# Инициализируем роутер уровня модуля
-router = Router()
+from lexicon.lexicon import LEXICON_BTN
 
-kb_builder = ReplyKeyboardBuilder()
 
-# Создаем список с кнопками
-buttons: list[KeyboardButton] = [
-    KeyboardButton(text=f'Кнопка {i + 1}') for i in range(6)
-]
+# Функция для генерации инлайн-клавиатур "на лету"
+def create_inline_kb(width: int,
+                     *args: str,
+                     **kwargs: str) -> InlineKeyboardMarkup:
+    # Инициализируем билдер
+    kb_builder = InlineKeyboardBuilder()
+    # Инициализируем список для кнопок
+    buttons: list[InlineKeyboardButton] = []
 
-# Распаковываем список с кнопками в билдер, указываем, что
-# в одном ряду должно быть 4 кнопки
-kb_builder.row(*buttons, width=2)
+    # Заполняем список кнопками из аргументов args и kwargs
+    if args:
+        for button in args:
+            buttons.append(InlineKeyboardButton(
+                text=LEXICON_BTN[button] if button in LEXICON_BTN else button,
+                callback_data=button))
+    if kwargs:
+        for button, text in kwargs.items():
+            buttons.append(InlineKeyboardButton(
+                text=text,
+                callback_data=button))
 
-first = "Выбор валюты для отслеживания"  # Выбор валюты и возвращение к кнопкам 1-5
-two = "Ежедневная рассылка курса"  # Вы выбрали получать ежедневную рассылку ... (перечисление). Возврат в меню
-three = "Уведомление о каждом изменении курса"  # Если выбрана two ->>
-# Получать уведомления о каждом изменении курса и получать ежедневную рассылку курса
-# Получать уведомления о каждом изменении курса и НЕ получать ежедневную рассылку курса
-four = "Уведомление при достижении курса"  # Если выбрана two and three ->>
-# Получать уведомления при достижении курса о каждом изменении курса и получать ежедневную рассылку курса
-# Получать уведомления о каждом изменении курса и НЕ получать ежедневную рассылку курса
-five = "Посмотреть график"
-six = "Отписаться"
+    # Распаковываем список с кнопками в билдер методом row c параметром width
+    kb_builder.row(*buttons, width=width)
+
+    # Возвращаем объект инлайн-клавиатуры
+    return kb_builder.as_markup()
+
+
+

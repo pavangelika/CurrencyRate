@@ -8,9 +8,7 @@ import plotly.graph_objects as go
 import requests
 from plotly.subplots import make_subplots
 
-from logging_settings import setup_logging
-
-logger = setup_logging()
+from logging_settings import logger
 
 
 def currency():
@@ -33,6 +31,8 @@ def currency():
             json.dump(currencies, f, ensure_ascii=False, indent=4)
     except Exception as e:
         logger.exception(e)
+
+    return currencies
 
 
 def course_today():
@@ -57,6 +57,7 @@ def course_today():
         logger.exception(e)
 
 
+
 def dinamic_course(cod):
     today = datetime.date.today().strftime("%d/%m/%Y")  # Формат: ДД/ММ/ГГГГ
     url = f"https://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=02/03/2001&date_req2={today}&VAL_NM_RQ={cod}"
@@ -69,7 +70,7 @@ def dinamic_course(cod):
 def save_file(data_xml, filename):
     try:
         # Определяем путь к корневой директории проекта
-        project_root = Path(__file__).resolve().parent
+        project_root = Path(__file__).resolve().parent.parent
 
         # Формируем полный путь к файлу
         file_path = project_root / f'save_files/{filename}.xml'
