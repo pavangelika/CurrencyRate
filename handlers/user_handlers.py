@@ -41,7 +41,7 @@ async def send_today_handler(message: Message):
     except Exception as e:
         logger.error(e)
 
-@router.message(Command(commands=["everyday_true"]))
+@router.message(Command(commands=["everyday"]))
 async def send_today_schedule_handler(message: Message):
     user_id = message.from_user.id
     if user_id in user_data:
@@ -79,38 +79,9 @@ async def send_today_schedule_handler(message: Message):
             await message.answer(
                 text=LEXICON_NOTIFICATION_SEND['exchange_rate_true'])
 
-
-@router.message(Command(commands=["exchange_rate_true"]))
-async def send_today_schedule_handler(message: Message):
-    user_id = message.from_user.id
-    if user_id in user_data:
-        try:
-            await update_user_data(message, "exchange_rate", True)
-            schedule_interval_greeting(user_id, scheduler)
-        except Exception as e:
-            logger.error(f"Error in send_today_schedule_handler: {e}")
-        else:
-            await message.answer(
-                text=LEXICON_NOTIFICATION_SEND['exchange_rate_true'])
-
-@router.message(Command(commands=["exchange_rate_false"]))
-async def send_today_schedule_handler(message: Message):
-    user_id = message.from_user.id
-    job_id = f"interval_greeting_{user_id}"
-    text = LEXICON_NOTIFICATION_SEND['exchange_rate_false']
-    if scheduler.get_job(job_id):
-        try:
-            schedule_unsubscribe(job_id, scheduler)
-        except Exception as e:
-            logger.error(e)
-        finally:
-            await update_user_data(message, "exchange_rate", False)
-            await message.answer(text)
-            logger.info(f'{user_id} отписан от рассылки {job_id}')
-
-
 @router.message(Command(commands=["chart"]))
 async def send_chart(message: Message):
+        # Создаем кнопку
     dollarCod = 'R01235'
     dollar = dinamic_course(dollarCod)
     dollar_data = parse_xml_data(dollar)
