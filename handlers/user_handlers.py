@@ -2,7 +2,7 @@
 
 from aiogram import Router
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery
+from aiogram.types import Message, CallbackQuery, InputFile
 
 from handlers.notifications import schedule_daily_greeting, schedule_interval_greeting, schedule_unsubscribe
 from keyboards.buttons import create_inline_kb
@@ -79,13 +79,26 @@ async def send_today_schedule_handler(message: Message):
             await message.answer(
                 text=LEXICON_NOTIFICATION_SEND['exchange_rate_true'])
 
+
 @router.message(Command(commands=["chart"]))
-async def send_chart(message: Message):
-        # Создаем кнопку
+async def send_html_graph(message: Message):
     dollarCod = 'R01235'
     dollar = dinamic_course(dollarCod)
     dollar_data = parse_xml_data(dollar)
-    await message.answer(graf_all_years_in_one(dollar_data))
+    # Генерация графика
+    file_path = graf_all_years_in_one(dollar_data)
+
+    # Отправка HTML-файла пользователю
+    await message.answer_document(InputFile(file_path))
+
+
+# @router.message(Command(commands=["chart"]))
+# async def send_chart(message: Message):
+#         # Создаем кнопку
+#     dollarCod = 'R01235'
+#     dollar = dinamic_course(dollarCod)
+#     dollar_data = parse_xml_data(dollar)
+#     await message.answer(graf_all_years_in_one(dollar_data))
 
 
 # Этот хэндлер будет срабатывать на команду "/help"

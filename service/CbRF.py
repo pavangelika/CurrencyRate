@@ -194,8 +194,10 @@ def graf_all_years_in_one(dollar_data):
         hovermode='x'
     )
 
-    # Отображение графика
-    return fig.show()
+    # Сохранение графика в HTML-файл
+    file_path = "save_files/dollar_rates.html"
+    fig.write_html(file_path)
+    return file_path
 
 
 def graf_all_years_as_lines_in_one(dollar_data):

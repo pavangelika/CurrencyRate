@@ -17,7 +17,7 @@ LEXICON_NOTIFICATION_SEND: dict[str, str] = {
 
 LEXICON_COMMANDS_MENU: dict[str, str] = {
     '/start': 'Начало работы',
-    '/change_rate': 'Выбор валюты',
+    '/select_rate': 'Выбор валюты',
     '/today': 'Курс сегодня',
     '/everyday': 'Подписаться/Отписаться на ежедневную рассылку курса',
     '/exchange_rate': 'Подписаться/Отписаться на рассылку об изменении курса',
